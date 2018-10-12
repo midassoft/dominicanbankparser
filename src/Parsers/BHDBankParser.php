@@ -2,7 +2,8 @@
 
 namespace MidasSoft\DominicanBankParser\Parsers;
 
-use MidasSoft\DominicanBankParser\CSV;
+use MidasSoft\DominicanBankParser\Files\CSV;
+use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 use MidasSoft\DominicanBankParser\Traits\InteractsWithArrayTrait;
 use MidasSoft\DominicanBankParser\Validators\BHDValidator;
@@ -16,20 +17,18 @@ class BHDBankParser extends AbstractParser implements ParserInterface
      * a BHD bank file and convert it
      * to array.
      *
-     * @param string $fileString
+     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
      *
      * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      *
      * @return array
      */
-    public function parse($fileString)
+    public function parse(AbstractFile $file)
     {
-        $this->failIfIsNotString($fileString);
-
         $fileData = [];
 
-        array_walk(array_slice(CSV::sanitize($fileString), 3), function ($line, $key) use (&$fileData) {
+        array_walk(array_slice($file->toArray(), 3), function ($line, $key) use (&$fileData) {
             if (!BHDValidator::validate($line)) {
                 return;
             }
@@ -40,7 +39,7 @@ class BHDBankParser extends AbstractParser implements ParserInterface
             $fileData["description"][] = $line[4]; // reference
         });
 
-        $this->failIfIsEmpty($fileData);
+        $this->failIfParsedFileIsEmpty($fileData);
 
         return $this->reverseMultidimensionalArrayValues($fileData);
     }

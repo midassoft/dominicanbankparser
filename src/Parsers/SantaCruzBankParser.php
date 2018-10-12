@@ -2,7 +2,8 @@
 
 namespace MidasSoft\DominicanBankParser\Parsers;
 
-use MidasSoft\DominicanBankParser\CSV;
+use MidasSoft\DominicanBankParser\Files\CSV;
+use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 use MidasSoft\DominicanBankParser\Validators\SantaCruzValidator;
 
@@ -13,20 +14,18 @@ class SantaCruzBankParser extends AbstractParser implements ParserInterface
      * a Santa Cruz bank file and convert it
      * to array.
      *
-     * @param string $fileString
+     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
      *
      * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      *
      * @return array
      */
-    public function parse($fileString)
+    public function parse(AbstractFile $file)
     {
-        $this->failIfIsNotString($fileString);
-
         $fileData = [];
 
-        array_walk(array_slice(CSV::sanitize($fileString), 1), function ($line, $key) use (&$fileData) {
+        array_walk(array_slice($file->toArray(), 1), function ($line, $key) use (&$fileData) {
             if (!SantaCruzValidator::validate($line)) {
                 return;
             }
@@ -37,7 +36,7 @@ class SantaCruzBankParser extends AbstractParser implements ParserInterface
             $fileData['description'][] = $line[1]; // description
         });
 
-        $this->failIfIsEmpty($fileData);
+        $this->failIfParsedFileIsEmpty($fileData);
 
         return $fileData;
     }

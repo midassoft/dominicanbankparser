@@ -2,7 +2,8 @@
 
 namespace MidasSoft\DominicanBankParser\Parsers;
 
-use MidasSoft\DominicanBankParser\CSV;
+use MidasSoft\DominicanBankParser\Files\CSV;
+use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 use MidasSoft\DominicanBankParser\Validators\PopularValidator;
 
@@ -13,20 +14,18 @@ class PopularBankParser extends AbstractParser implements ParserInterface
      * a Popular bank file and convert it
      * to array.
      *
-     * @param string $fileString
+     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
      *
      * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      *
      * @return array
      */
-    public function parse($fileString)
+    public function parse(AbstractFile $file)
     {
-        $this->failIfIsNotString($fileString);
-
         $fileData = [];
 
-        array_walk(array_slice(CSV::sanitize($fileString), 7), function ($line, $key) use (&$fileData) {
+        array_walk(array_slice($file->toArray(), 7), function ($line, $key) use (&$fileData) {
             if (!PopularValidator::validate($line)) {
                 return;
             }
@@ -37,7 +36,7 @@ class PopularBankParser extends AbstractParser implements ParserInterface
             $fileData["description"][] = $line[5]; // long description
         });
 
-        $this->failIfIsEmpty($fileData);
+        $this->failIfParsedFileIsEmpty($fileData);
 
         return $fileData;
     }
