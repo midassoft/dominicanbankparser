@@ -16,26 +16,10 @@ class AbstractParser
      *
      * @return void
      */
-    protected function failIfIsEmpty(array $fileData)
+    protected function failIfParsedFileIsEmpty(array $fileData)
     {
         if (empty($fileData)) {
             throw new EmptyFileException('You\'re trying to parse an empty file.');
-        }
-    }
-
-    /**
-     * Validates that a value is of type string.
-     *
-     * @param string $fileString
-     *
-     * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
-     *
-     * @return void
-     */
-    protected function failIfIsNotString($fileString)
-    {
-        if (!is_string($fileString)) {
-            throw new InvalidArgumentException('You have to pass a string as data.');
         }
     }
 }
