@@ -15,8 +15,8 @@ class SantaCruzBankParserTest extends TestCase
         $file = new CSV(file_get_contents(__DIR__ . '/../resources/santa_cruz_bank_file.csv'));
         $parsedData = $santaCruzParser->parse($file);
 
-        $this->assertTrue(is_array($parsedData));
-        $this->assertCount(6, $parsedData['credit']);
+        $this->assertInstanceOf('Illuminate\Support\Collection', $parsedData);
+        $this->assertCount(6, $parsedData);
     }
 
     /**

@@ -15,8 +15,8 @@ class BHDBankParserTest extends TestCase
         $file = new CSV(file_get_contents(__DIR__ . '/../resources/bhd_bank_file.csv'));
         $parsedData = $bhdParser->parse($file);
 
-        $this->assertTrue(is_array($parsedData));
-        $this->assertCount(91, $parsedData['credit']);
+        $this->assertInstanceOf('Illuminate\Support\Collection', $parsedData);
+        $this->assertCount(91, $parsedData);
     }
 
     /**

@@ -15,8 +15,8 @@ class PopularBankParserTest extends TestCase
         $file = new CSV(file_get_contents(__DIR__ . '/../resources/popular_bank_file.csv'));
         $parsedData = $popularParser->parse($file);
 
-        $this->assertTrue(is_array($parsedData));
-        $this->assertCount(105, $parsedData['credit']);
+        $this->assertInstanceOf('Illuminate\Support\Collection', $parsedData);
+        $this->assertCount(105, $parsedData);
     }
 
     /**

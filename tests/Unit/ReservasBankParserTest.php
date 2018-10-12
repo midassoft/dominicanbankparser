@@ -15,8 +15,8 @@ class ReservasBankParserTest extends TestCase
         $file = new CSV(file_get_contents(__DIR__ . '/../resources/reservas_bank_file.csv'));
         $parsedData = $reservasParser->parse($file);
 
-        $this->assertTrue(is_array($parsedData));
-        $this->assertCount(26, $parsedData['credit']);
+        $this->assertInstanceOf('Illuminate\Support\Collection', $parsedData);
+        $this->assertCount(26, $parsedData);
     }
 
     /**
