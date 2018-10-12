@@ -2,6 +2,8 @@
 
 namespace MidasSoft\DominicanBankParser\Parsers;
 
+use Illuminate\Support\Collection;
+use MidasSoft\DominicanBankParser\Deposit;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
@@ -26,21 +28,18 @@ class ReservasBankParser extends AbstractParser implements ParserInterface
      */
     public function parse(AbstractFile $file)
     {
-        $fileData = [];
+        $collection = new Collection();
 
-        array_walk(array_slice($file->toArray(), 1), function ($line, $key) use (&$fileData) {
+        array_walk(array_slice($file->toArray(), 1), function ($line, $key) use (&$collection) {
             if (!ReservasValidator::validate($line)) {
                 return;
             }
 
-            $fileData['credit'][] = trim($line[5]); // amount
-            $fileData['date'][] = $line[1]; // date
-            $fileData['term'][] = $line[2]; // short description
-            $fileData['description'][] = $line[7]; // long description
+            $collection->push(new Deposit(trim($line[5]), $line[1], $line[7], $line[2]));
         });
 
-        $this->failIfParsedFileIsEmpty($fileData);
+        $this->failIfParsedFileIsEmpty($collection);
 
-        return $this->reverseMultidimensionalArrayValues($fileData);
+        return $collection;
     }
 }

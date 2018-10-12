@@ -2,6 +2,8 @@
 
 namespace MidasSoft\DominicanBankParser\Parsers;
 
+use Illuminate\Support\Collection;
+use MidasSoft\DominicanBankParser\Deposit;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
@@ -23,21 +25,18 @@ class PopularBankParser extends AbstractParser implements ParserInterface
      */
     public function parse(AbstractFile $file)
     {
-        $fileData = [];
+        $collection = new Collection();
 
-        array_walk(array_slice($file->toArray(), 7), function ($line, $key) use (&$fileData) {
+        array_walk(array_slice($file->toArray(), 5), function ($line, $key) use (&$collection) {
             if (!PopularValidator::validate($line)) {
                 return;
             }
 
-            $fileData["credit"][] = $line[2]; // amount
-            $fileData["date"][] = $line[0]; // date
-            $fileData["term"][] = $line[1]; // short description
-            $fileData["description"][] = $line[5]; // long description
+            $collection->push(new Deposit($line[2], $line[0], $line[5], $line[1]));
         });
 
-        $this->failIfParsedFileIsEmpty($fileData);
+        $this->failIfParsedFileIsEmpty($collection);
 
-        return $fileData;
+        return $collection;
     }
 }
