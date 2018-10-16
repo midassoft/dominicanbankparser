@@ -27,7 +27,7 @@ $result = $parser->parse(file_get_contents(__DIR__.'/bhd_bank_file.csv'));
 
 ## Supported banks
 
-- BHD
-- Popular
-- Reservas
-- Santa Cruz
+- Banco BHD Leon
+- Banco Popular Dominicano
+- Banco de Reservas
+- Banco Santa Cruz
