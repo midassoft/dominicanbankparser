@@ -40,6 +40,10 @@ class ReservasBankParser extends AbstractParser implements ParserInterface
 
         $this->failIfParsedFileIsEmpty($collection);
 
+        if (!is_null($this->cacheManager)) {
+            $this->cacheManager->add(date('Ymd'), $collection);
+        }
+
         return $collection;
     }
 }
