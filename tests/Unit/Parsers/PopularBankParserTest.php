@@ -1,7 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Parsers;
 
+use DateTime;
+use DateTimeZone;
 use MidasSoft\DominicanBankParser\Cache\ArrayCacheDriver;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Parsers\PopularBankParser;
@@ -16,7 +18,7 @@ class PopularBankParserTest extends TestCase
     {
         $this->parser = new PopularBankParser();
         $this->parser->setCacheManager(new ArrayCacheDriver());
-        $this->file = new CSV(file_get_contents(__DIR__ . '/../resources/popular_bank_file.csv'));
+        $this->file = new CSV(file_get_contents(__DIR__ . '/../../resources/popular_bank_file.csv'));
         parent::setUp();
     }
 
@@ -43,7 +45,7 @@ class PopularBankParserTest extends TestCase
     public function popular_bank_parser_can_parse_file_from_cache()
     {
         $parsedData = $this->parser->parse($this->file);
-        $parsedFromCache = $this->parser->getCacheManager()->get(date('Ymd'));
+        $parsedFromCache = $this->parser->getCacheManager()->get((new DateTime('now', new DateTimeZone('America/Santo_Domingo')))->format('Y-m-d H:i:s'));
 
         $this->assertInstanceOf('Illuminate\Support\Collection', $parsedData);
         $this->assertInstanceOf('Illuminate\Support\Collection', $parsedFromCache);
