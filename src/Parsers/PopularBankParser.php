@@ -6,10 +6,9 @@ use Illuminate\Support\Collection;
 use MidasSoft\DominicanBankParser\Deposit;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
-use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 use MidasSoft\DominicanBankParser\Validators\PopularValidator;
 
-class PopularBankParser extends AbstractParser implements ParserInterface
+class PopularBankParser extends AbstractParser
 {
     /**
      * Eliminates unnecesary values into
@@ -36,10 +35,7 @@ class PopularBankParser extends AbstractParser implements ParserInterface
         });
 
         $this->failIfParsedFileIsEmpty($collection);
-
-        if (!is_null($this->cacheManager)) {
-            $this->cacheManager->add(date('Ymd'), $collection);
-        }
+        $this->cache($collection);
 
         return $collection;
     }

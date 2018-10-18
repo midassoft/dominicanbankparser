@@ -6,11 +6,10 @@ use Illuminate\Support\Collection;
 use MidasSoft\DominicanBankParser\Deposit;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
-use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 use MidasSoft\DominicanBankParser\Traits\InteractsWithArrayTrait;
 use MidasSoft\DominicanBankParser\Validators\BHDValidator;
 
-class BHDBankParser extends AbstractParser implements ParserInterface
+class BHDBankParser extends AbstractParser
 {
     use InteractsWithArrayTrait;
 
@@ -39,10 +38,7 @@ class BHDBankParser extends AbstractParser implements ParserInterface
         });
 
         $this->failIfParsedFileIsEmpty($collection);
-
-        if (!is_null($this->cacheManager)) {
-            $this->cacheManager->add(date('Ymd'), $collection);
-        }
+        $this->cache($collection);
 
         return $collection;
     }
