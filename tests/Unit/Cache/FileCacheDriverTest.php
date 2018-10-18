@@ -18,6 +18,7 @@ class FileCacheDriverTest extends TestCase
 
         $this->cacheDriver = new FileCacheDriver([
             'path' => vfsStreamWrapper::getRoot()->url(),
+            'timezone' => 'America/Santo_Domingo',
         ]);
 
         parent::setUp();
@@ -43,5 +44,18 @@ class FileCacheDriverTest extends TestCase
     {
         $this->cacheDriver->add('file1', 'content 1');
         $this->assertEquals('content 1', $this->cacheDriver->get('file1'));
+    }
+
+    /** @test */
+    public function it_can_list_all_cached_elements()
+    {
+        $this->cacheDriver->add('file1', 'content 1');
+        $this->cacheDriver->add('file2', 'content 2');
+
+        $cachedFiles = $this->cacheDriver->getKeys();
+
+        $this->assertCount(2, $cachedFiles);
+        $this->assertEquals('file1', $cachedFiles[0]);
+        $this->assertEquals('file2', $cachedFiles[1]);
     }
 }
