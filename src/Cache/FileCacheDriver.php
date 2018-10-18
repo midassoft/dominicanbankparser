@@ -2,16 +2,17 @@
 
 namespace MidasSoft\DominicanBankParser\Cache;
 
-use MidasSoft\DominicanBankParser\Interfaces\CacheInterface;
-
-class FileCacheDriver implements CacheInterface
+class FileCacheDriver extends AbstractCacheDriver
 {
     /**
      * The config of the driver.
      *
      * @var array
      */
-    private $config;
+    protected $config = [
+        'path' => '',
+        'timezone' => 'America/Santo_Domingo',
+    ];
 
     /**
      * Creates a new FileCacheDriver instance.
@@ -33,6 +34,7 @@ class FileCacheDriver implements CacheInterface
 
         fwrite($file, serialize($value));
         fclose($file);
+        $this->keys[] = $key;
     }
 
     /**

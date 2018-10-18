@@ -2,19 +2,36 @@
 
 namespace MidasSoft\DominicanBankParser\Parsers;
 
+use DateTime;
+use DateTimeZone;
 use Illuminate\Support\Collection;
 use MidasSoft\DominicanBankParser\Exceptions\EmptyFileException;
 use MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException;
 use MidasSoft\DominicanBankParser\Interfaces\CacheInterface;
+use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 
-class AbstractParser
+abstract class AbstractParser implements ParserInterface
 {
     /**
      * CacheInterface instance.
      *
      * @var \MidasSoft\DominicanBankParser\Interfaces\CacheInterface
      */
-    protected $cacheManager = null;
+    protected $cacheManager;
+
+    /**
+     * Sends a value to the cache manager.
+     *
+     * @return void
+     */
+    public function cache($data)
+    {
+        if (!is_null($this->cacheManager)) {
+            $key = (new DateTime('now', new DateTimeZone($this->cacheManager->getConfigKey('timezone'))))->format('Y-m-d H:i:s');
+
+            $this->cacheManager->add($key, $data);
+        }
+    }
 
     /**
      * Validates that a file has data to parse.

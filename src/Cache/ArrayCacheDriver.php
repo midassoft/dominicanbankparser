@@ -2,16 +2,14 @@
 
 namespace MidasSoft\DominicanBankParser\Cache;
 
-use MidasSoft\DominicanBankParser\Interfaces\CacheInterface;
-
-class ArrayCacheDriver implements CacheInterface
+class ArrayCacheDriver extends AbstractCacheDriver
 {
     /**
      * The data container.
      *
      * @var array
      */
-    private $data;
+    protected $data;
 
     /**
      * Adds a new value to the cache.
@@ -24,6 +22,7 @@ class ArrayCacheDriver implements CacheInterface
     public function add($key, $value)
     {
         $this->data[$key] = serialize($value);
+        $this->keys[] = $key;
     }
 
     /**
