@@ -1,6 +1,6 @@
 # About Dominican Bank Parser
 
-This package allows you to parse files from the major dominican bank companies.
+This package allows you to parse files from the major dominican Bank entities.
 
 ## Requirements
 
