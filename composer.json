@@ -1,6 +1,10 @@
 {
-    "name": "midasred/bankreconciliation",
+    "name": "midassoft/dominicanbankparser",
     "type": "library",
+    "description": "Dominican Bank parser",
+    "keywords": [
+        "bank parser","dominican", "finance"
+    ],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/midassoft/bankreconciliation/issues",
