@@ -28,8 +28,9 @@ class ReservasBankParser extends AbstractParser
     public function parse(AbstractFile $file)
     {
         $collection = new Collection();
+        $fileArray = array_slice($file->toArray(), 1);
 
-        array_walk(array_slice($file->toArray(), 1), function ($line, $key) use (&$collection) {
+        array_walk($fileArray, function ($line, $key) use (&$collection) {
             if (!ReservasValidator::validate($line)) {
                 return;
             }
