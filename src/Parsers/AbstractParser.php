@@ -27,7 +27,8 @@ abstract class AbstractParser implements ParserInterface
     public function cache($data)
     {
         if (!is_null($this->cacheManager)) {
-            $key = (new DateTime('now', new DateTimeZone($this->cacheManager->getConfigKey('timezone'))))->format('Y-m-d H:i:s');
+            $timezone = $this->cacheManager->getConfigKey('timezone') ?? 'America/Santo_Domingo';
+            $key = (new DateTime('now', new DateTimeZone($timezone)))->format('Y-m-d H:i:s');
 
             $this->cacheManager->add($key, $data);
         }

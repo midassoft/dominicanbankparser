@@ -15,7 +15,7 @@ class SantaCruzValidator implements ValidatorInterface
             return false;
         }
 
-        if (self::isRetirement($line[1])) {
+        if (self::isRetirement($deposit[1])) {
             return false;
         }
 
