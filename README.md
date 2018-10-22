@@ -1,6 +1,6 @@
 # About Dominican Bank Parser
 
-This package allows you to parse files from the major dominican bank companies.
+This package allows you to parse files from the major dominican Bank entities.
 
 ## Requirements
 
@@ -19,15 +19,36 @@ composer require "midassoft/dominicanbankparser"
 Just select the parser you want to use and call the parse method with the file content.
 
 ```php
-use namespace MidasSoft\DominicanBankParser\Parsers\BHDBankParser;
+use MidasSoft\DominicanBankParser\Files\CSV;
+use MidasSoft\DominicanBankParser\Parsers\BHDBankParser;
 
 $parser = new BHDBankParser();
-$result = $parser->parse(file_get_contents(__DIR__.'/bhd_bank_file.csv'));
+$file = file_get_contents(__DIR__.'/bhd_bank_file.csv');
+$result = $parser->parse(new CSV($file));
 ```
+
+You can especify a cache manager in your parser if you want your data to persist , every parse will be automatically cached.
+
+```php
+use MidasSoft\DominicanBankParser\Files\CSV;
+use MidasSoft\DominicanBankParser\Parsers\BHDBankParser;
+
+$parser = new BHDBankParser(new FileCacheDriver([
+    'path' => __DIR__.'/cache',
+    'timezone' => 'America/Santo_Domingo',
+]));
+
+$file = file_get_contents(__DIR__.'/bhd_bank_file.csv');
+$result = $parser->parse(new CSV($file));
+$cacheKeys = $parser->getCacheManager()->getKeys();
+$parsedFromCache = $parser->getCacheManager()->get(end($cacheKeys));
+```
+
+There's two cache driver available `ArrayCacheDriver` and `FileCacheDriver`. When you use the `FileCacheDriver` you need to specify the `path` and `timezone` within your configuration.
 
 ## Supported banks
 
-- Banco BHD Leon
-- Banco Popular Dominicano
-- Banco de Reservas
-- Banco Santa Cruz
+- BHD
+- Popular
+- Reservas
+- Santa Cruz
