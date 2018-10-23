@@ -87,4 +87,14 @@ class Deposit
     {
         return $this->term;
     }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf('%s|%s|%s|%s', $this->amount, $this->date, $this->description, $this->term);
+    }
 }
