@@ -4,7 +4,7 @@ namespace MidasSoft\DominicanBankParser\Parsers;
 
 use DateTime;
 use DateTimeZone;
-use Illuminate\Support\Collection;
+use MidasSoft\DominicanBankParser\Collections\DepositCollection;
 use MidasSoft\DominicanBankParser\Exceptions\EmptyFileException;
 use MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException;
 use MidasSoft\DominicanBankParser\Interfaces\CacheInterface;
@@ -37,13 +37,13 @@ abstract class AbstractParser implements ParserInterface
     /**
      * Validates that a file has data to parse.
      *
-     * @param \Illuminate\Support\Collection $fileData
+     * @param \MidasSoft\DominicanBankParser\Collections\DepositCollection $fileData
      *
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      *
      * @return void
      */
-    protected function failIfParsedFileIsEmpty(Collection $fileData)
+    protected function failIfParsedFileIsEmpty(DepositCollection $fileData)
     {
         if (count($fileData) == 0) {
             throw new EmptyFileException('You\'re trying to parse an empty file.');

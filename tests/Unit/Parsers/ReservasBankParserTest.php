@@ -27,7 +27,7 @@ class ReservasBankParserTest extends TestCase
     {
         $parsedData = $this->parser->parse($this->file);
 
-        $this->assertInstanceOf('Illuminate\Support\Collection', $parsedData);
+        $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedData);
         $this->assertCount(26, $parsedData);
     }
 
@@ -47,8 +47,8 @@ class ReservasBankParserTest extends TestCase
         $parsedData = $this->parser->parse($this->file);
         $parsedFromCache = $this->parser->getCacheManager()->get((new DateTime('now', new DateTimeZone('America/Santo_Domingo')))->format('Y-m-d H:i:s'));
 
-        $this->assertInstanceOf('Illuminate\Support\Collection', $parsedData);
-        $this->assertInstanceOf('Illuminate\Support\Collection', $parsedFromCache);
+        $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedData);
+        $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedFromCache);
         $this->assertCount(26, $parsedData);
         $this->assertCount(26, $parsedFromCache);
     }

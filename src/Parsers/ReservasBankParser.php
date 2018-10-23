@@ -2,7 +2,7 @@
 
 namespace MidasSoft\DominicanBankParser\Parsers;
 
-use Illuminate\Support\Collection;
+use MidasSoft\DominicanBankParser\Collections\DepositCollection;
 use MidasSoft\DominicanBankParser\Deposit;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
@@ -27,7 +27,7 @@ class ReservasBankParser extends AbstractParser
      */
     public function parse(AbstractFile $file)
     {
-        $collection = new Collection();
+        $collection = new DepositCollection();
         $fileArray = array_slice($file->toArray(), 1);
 
         array_walk($fileArray, function ($line, $key) use (&$collection) {
