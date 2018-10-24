@@ -30,7 +30,7 @@ $result = $parser->parse(new CSV($file));
 This will return a [collection](https://laravel.com/docs/5.7/collections) of `Deposit` objects.
 
 ```
-object(Tightenco\Collect\Support\Collection)#302 (1) {
+object(MidasSoft\DominicanBankParser\Collections\DepositCollection)#302 (1) {
   ["items":protected]=>
   array(91) {
     [0]=>
