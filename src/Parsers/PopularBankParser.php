@@ -19,14 +19,14 @@ class PopularBankParser extends AbstractParser
      * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      *
-     * @return array
+     * @return \MidasSoft\DominicanBankParser\Collections\DepositCollection
      */
     public function parse(AbstractFile $file)
     {
         $collection = new DepositCollection();
         $fileArray = array_slice($file->toArray(), 5);
 
-        array_walk($fileArray, function ($line, $key) use (&$collection) {
+        array_walk($fileArray, function ($line) use (&$collection) {
             if (!PopularValidator::validate($line)) {
                 return;
             }

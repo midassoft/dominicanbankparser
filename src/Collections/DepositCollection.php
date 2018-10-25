@@ -13,7 +13,7 @@ class DepositCollection extends Collection
      */
     public function __construct($items = [])
     {
-        array_walk($items, function ($value, $key) {
+        array_walk($items, function ($value) {
             if (!$value instanceof Deposit) {
                 throw new InvalidArgumentException('You should pass only Deposit objects to this collection.');
             }
