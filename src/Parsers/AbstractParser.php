@@ -4,17 +4,17 @@ namespace MidasSoft\DominicanBankParser\Parsers;
 
 use DateTime;
 use DateTimeZone;
+use MidasSoft\DominicanBankParser\Cache\AbstractCacheDriver;
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
 use MidasSoft\DominicanBankParser\Exceptions\EmptyFileException;
-use MidasSoft\DominicanBankParser\Interfaces\CacheInterface;
 use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 
 abstract class AbstractParser implements ParserInterface
 {
     /**
-     * CacheInterface instance.
+     * AbstractCacheDriver instance.
      *
-     * @var \MidasSoft\DominicanBankParser\Interfaces\CacheInterface
+     * @var \MidasSoft\DominicanBankParser\Cache\AbstractCacheDriver
      */
     protected $cacheManager;
 
@@ -52,7 +52,7 @@ abstract class AbstractParser implements ParserInterface
     /**
      * Returns the cacheManager property.
      *
-     * @return \MidasSoft\DominicanBankParser\Interfaces\CacheInterface
+     * @return \MidasSoft\DominicanBankParser\Cache\AbstractCacheDriver
      */
     public function getCacheManager()
     {
@@ -62,11 +62,11 @@ abstract class AbstractParser implements ParserInterface
     /**
      * Returns the cacheManager property.
      *
-     * @param \MidasSoft\DominicanBankParser\Interfaces\CacheInterface
+     * @param \MidasSoft\DominicanBankParser\Cache\AbstractCacheDriver
      *
      * @return void
      */
-    public function setCacheManager(CacheInterface $cacheManager)
+    public function setCacheManager(AbstractCacheDriver $cacheManager)
     {
         $this->cacheManager = $cacheManager;
     }
