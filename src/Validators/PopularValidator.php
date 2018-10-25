@@ -83,7 +83,7 @@ class PopularValidator implements ValidatorInterface
      */
     private static function isValidDate($date)
     {
-        return preg_match('/^([0-9]{1,2})\\/([0-9]{1,2})\\/([0-9]{4})$/', $date);
+        return boolval(preg_match('/^([0-9]{1,2})\\/([0-9]{1,2})\\/([0-9]{4})$/', $date));
     }
 
     /**
