@@ -30,10 +30,7 @@ class FileCacheDriver extends AbstractCacheDriver
     public function add($key, $value)
     {
         $filename = sprintf('%s/%s.txt', $this->config['path'], $key);
-        $file = fopen($filename, 'w');
-
-        fwrite($file, serialize($value));
-        fclose($file);
+        $file = file_put_contents($filename, serialize($value));
         $this->keys[] = $key;
     }
 
@@ -43,10 +40,8 @@ class FileCacheDriver extends AbstractCacheDriver
     public function get($key)
     {
         $filename = sprintf('%s/%s.txt', $this->config['path'], $key);
-        $file = fopen($filename, 'r');
-        $content = fread($file, filesize($filename));
 
-        return unserialize($content);
+        return unserialize(file_get_contents($filename));
     }
 
     /**
