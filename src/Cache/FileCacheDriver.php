@@ -10,7 +10,7 @@ class FileCacheDriver extends AbstractCacheDriver
      * @var array
      */
     protected $config = [
-        'path' => '',
+        'path'     => '',
         'timezone' => 'America/Santo_Domingo',
     ];
 
@@ -25,7 +25,7 @@ class FileCacheDriver extends AbstractCacheDriver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function add($key, $value)
     {
@@ -38,7 +38,7 @@ class FileCacheDriver extends AbstractCacheDriver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function get($key)
     {
@@ -50,7 +50,7 @@ class FileCacheDriver extends AbstractCacheDriver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function remove($key)
     {

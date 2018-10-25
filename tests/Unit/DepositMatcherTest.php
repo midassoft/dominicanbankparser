@@ -33,10 +33,10 @@ class DepositMatcherTest extends TestCase
         $differences = $this->depositMatcher->getDifference($collection1, $collection2);
         $annulments = $this->depositMatcher->getAnnulments($collection1, $collection2);
         $expectedDifference = new DepositCollection([
-            new Deposit(400, '10/22/2018', 'fake deposit 2', 'credito')
+            new Deposit(400, '10/22/2018', 'fake deposit 2', 'credito'),
         ]);
         $expectedAnnulments = new DepositCollection([
-            new Deposit(450, '10/22/2018', 'fake deposit 2', 'credito')
+            new Deposit(450, '10/22/2018', 'fake deposit 2', 'credito'),
         ]);
 
         $this->assertCount(1, $differences); // New deposits

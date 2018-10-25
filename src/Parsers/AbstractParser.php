@@ -6,7 +6,6 @@ use DateTime;
 use DateTimeZone;
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
 use MidasSoft\DominicanBankParser\Exceptions\EmptyFileException;
-use MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException;
 use MidasSoft\DominicanBankParser\Interfaces\CacheInterface;
 use MidasSoft\DominicanBankParser\Interfaces\ParserInterface;
 

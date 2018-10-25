@@ -35,5 +35,5 @@ abstract class AbstractFile
      *
      * @return array
      */
-    public abstract function toArray();
+    abstract public function toArray();
 }

@@ -3,9 +3,9 @@
 namespace Tests\Unit\Cache;
 
 use MidasSoft\DominicanBankParser\Cache\FileCacheDriver;
-use PHPUnit\Framework\TestCase;
-use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamWrapper;
+use PHPUnit\Framework\TestCase;
 
 class FileCacheDriverTest extends TestCase
 {
@@ -17,7 +17,7 @@ class FileCacheDriverTest extends TestCase
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('cache'));
 
         $this->cacheDriver = new FileCacheDriver([
-            'path' => vfsStreamWrapper::getRoot()->url(),
+            'path'     => vfsStreamWrapper::getRoot()->url(),
             'timezone' => 'America/Santo_Domingo',
         ]);
 

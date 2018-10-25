@@ -18,7 +18,7 @@ class ReservasBankParserTest extends TestCase
     {
         $this->parser = new ReservasBankParser();
         $this->parser->setCacheManager(new ArrayCacheDriver());
-        $this->file = new CSV(file_get_contents(__DIR__ . '/../../resources/reservas_bank_file.csv'));
+        $this->file = new CSV(file_get_contents(__DIR__.'/../../resources/reservas_bank_file.csv'));
         parent::setUp();
     }
 

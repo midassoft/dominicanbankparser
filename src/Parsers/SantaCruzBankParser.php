@@ -4,7 +4,6 @@ namespace MidasSoft\DominicanBankParser\Parsers;
 
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
 use MidasSoft\DominicanBankParser\Deposit;
-use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Validators\SantaCruzValidator;
 

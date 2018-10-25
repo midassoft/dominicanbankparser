@@ -9,7 +9,7 @@ use Tightenco\Collect\Support\Collection;
 class DepositCollection extends Collection
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function __construct($items = [])
     {
@@ -23,7 +23,7 @@ class DepositCollection extends Collection
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function push($value)
     {

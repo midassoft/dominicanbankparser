@@ -18,7 +18,7 @@ class SantaCruzBankParserTest extends TestCase
     {
         $this->parser = new SantaCruzBankParser();
         $this->parser->setCacheManager(new ArrayCacheDriver());
-        $this->file = new CSV(file_get_contents(__DIR__ . '/../../resources/santa_cruz_bank_file.csv'));
+        $this->file = new CSV(file_get_contents(__DIR__.'/../../resources/santa_cruz_bank_file.csv'));
         parent::setUp();
     }
 
