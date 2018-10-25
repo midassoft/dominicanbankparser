@@ -2,6 +2,12 @@
 
 This package allows you to parse files from the major dominican Bank entities.
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/midassoft/dominicanbankparser/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/midassoft/dominicanbankparser/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/midassoft/dominicanbankparser/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/midassoft/dominicanbankparser/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/midassoft/dominicanbankparser/badges/build.png?b=master)](https://scrutinizer-ci.com/g/midassoft/dominicanbankparser/build-status/master)
+[![Build Status](https://travis-ci.org/midassoft/dominicanbankparser.svg?branch=master)](https://travis-ci.org/midassoft/dominicanbankparser)
+[![StyleCI](https://github.styleci.io/repos/150613956/shield?branch=master)](https://github.styleci.io/repos/150613956)
+
 ## Requirements
 
 ```
