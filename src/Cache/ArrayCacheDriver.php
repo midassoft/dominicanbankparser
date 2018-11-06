@@ -41,6 +41,7 @@ class ArrayCacheDriver extends AbstractCacheDriver
      * Returns the data property.
      *
      * @var array
+     * @return array
      */
     public function getData()
     {
