@@ -19,7 +19,7 @@ class DepositCollection extends Collection
                 throw new InvalidArgumentException('You should pass only Deposit objects to this collection.');
             }
 
-            if(! $value->getUniqueId()) {
+            if (! $value->getUniqueId()) {
                 throw new InvalidUniqueIdException("Invalid uniqueId.");
             }
         });
