@@ -46,6 +46,6 @@ class PopularBankParser extends AbstractParser
      */
     public function uniqueId(array $data): string
     {
-        return md5($data[6].$data[0].$data[4].'-'.$data[5]);
+        return md5($data[2].$data[0].$data[5].'-'.$data[3]);
     }
 }
