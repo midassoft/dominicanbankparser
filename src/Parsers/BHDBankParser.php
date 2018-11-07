@@ -13,16 +13,14 @@ class BHDBankParser extends AbstractParser
     use InteractsWithArrayTrait;
 
     /**
-     * Eliminates unnecesary values into
+     * Eliminates unnecessary values into
      * a BHD bank file and convert it
      * to array.
      *
-     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
-     *
-     * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
-     * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
+     * @param AbstractFile $file
      *
      * @return \MidasSoft\DominicanBankParser\Collections\DepositCollection
+     * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      */
     public function parse(AbstractFile $file)
     {
@@ -34,12 +32,21 @@ class BHDBankParser extends AbstractParser
                 return;
             }
 
-            $collection->push(new Deposit($line[6], $line[0], $line[4], $line[4]));
+            $collection->push(new Deposit($line[6], $line[0], $line[4], $line[4], $this->uniqueId($line)));
         });
 
         $this->failIfParsedFileIsEmpty($collection);
         $this->cache($collection);
 
         return $collection;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function uniqueId(array $data): string
+    {
+        return md5($data[6].$data[0].$data[4].'-'.$data[9]);
     }
 }

@@ -24,8 +24,6 @@ class CSV extends AbstractFile
     /**
      * Converts a CSV string to array.
      *
-     * @param string $csvString
-     *
      * @return array
      */
     public function toArray()

@@ -14,12 +14,10 @@ class PopularBankParser extends AbstractParser
      * a Popular bank file and convert it
      * to array.
      *
-     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
-     *
-     * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
-     * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
+     * @param AbstractFile $file
      *
      * @return \MidasSoft\DominicanBankParser\Collections\DepositCollection
+     * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      */
     public function parse(AbstractFile $file)
     {
@@ -31,12 +29,21 @@ class PopularBankParser extends AbstractParser
                 return;
             }
 
-            $collection->push(new Deposit($line[2], $line[0], $line[5], $line[1]));
+            $collection->push(new Deposit($line[2], $line[0], $line[5], $line[1], $this->uniqueId($line)));
         });
 
         $this->failIfParsedFileIsEmpty($collection);
         $this->cache($collection);
 
         return $collection;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function uniqueId(array $data): string
+    {
+        return md5($data[6].$data[0].$data[4].'-'.$data[5]);
     }
 }

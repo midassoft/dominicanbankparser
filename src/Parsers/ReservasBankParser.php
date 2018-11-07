@@ -17,12 +17,10 @@ class ReservasBankParser extends AbstractParser
      * a Reservas bank file and convert it
      * to array.
      *
-     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
-     *
-     * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
-     * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
+     * @param AbstractFile $file
      *
      * @return \MidasSoft\DominicanBankParser\Collections\DepositCollection
+     * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      */
     public function parse(AbstractFile $file)
     {
@@ -34,12 +32,21 @@ class ReservasBankParser extends AbstractParser
                 return;
             }
 
-            $collection->push(new Deposit(trim($line[5]), $line[1], $line[7], $line[2]));
+            $collection->push(new Deposit(trim($line[5]), $line[1], $line[7], $line[2], $this->uniqueId($line)));
         });
 
         $this->failIfParsedFileIsEmpty($collection);
         $this->cache($collection);
 
         return $collection;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function uniqueId(array $data): string
+    {
+        return md5($data[5].$data[1].$data[7].'-'.$data[3]);
     }
 }
