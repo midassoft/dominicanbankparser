@@ -42,11 +42,11 @@ class Deposit
     /**
      * Creates a new Deposit object.
      *
-     * @param float $amount
+     * @param float  $amount
      * @param string $date
      * @param string $description
      * @param string $term
-     * @param null $unique_id
+     * @param null   $unique_id
      */
     public function __construct($amount, $date, $description, $term, $unique_id = null)
     {
