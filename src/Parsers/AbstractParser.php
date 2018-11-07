@@ -22,6 +22,7 @@ abstract class AbstractParser implements ParserInterface
      * Sends a value to the cache manager.
      *
      * @param $data
+     *
      * @return void
      */
     public function cache($data)

@@ -18,7 +18,7 @@ class BHDBankParserTest extends TestCase
     {
         $this->parser = new BHDBankParser();
         $this->parser->setCacheManager(new ArrayCacheDriver());
-        $this->file = new CSV(file_get_contents( __DIR__.'/../../resources/bhd_bank_file.csv'));
+        $this->file = new CSV(file_get_contents(__DIR__.'/../../resources/bhd_bank_file.csv'));
         parent::setUp();
     }
 

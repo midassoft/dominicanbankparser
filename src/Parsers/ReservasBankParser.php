@@ -19,8 +19,9 @@ class ReservasBankParser extends AbstractParser
      *
      * @param AbstractFile $file
      *
-     * @return \MidasSoft\DominicanBankParser\Collections\DepositCollection
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
+     *
+     * @return \MidasSoft\DominicanBankParser\Collections\DepositCollection
      */
     public function parse(AbstractFile $file)
     {
@@ -43,6 +44,7 @@ class ReservasBankParser extends AbstractParser
 
     /**
      * @param array $data
+     *
      * @return string
      */
     public function uniqueId(array $data): string
