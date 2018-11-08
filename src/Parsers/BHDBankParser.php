@@ -3,7 +3,7 @@
 namespace MidasSoft\DominicanBankParser\Parsers;
 
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
-use MidasSoft\DominicanBankParser\Deposit;
+use MidasSoft\DominicanBankParser\Deposits\BHDDeposit;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Traits\InteractsWithArrayTrait;
 use MidasSoft\DominicanBankParser\Validators\BHDValidator;
@@ -13,11 +13,11 @@ class BHDBankParser extends AbstractParser
     use InteractsWithArrayTrait;
 
     /**
-     * Eliminates unnecesary values into
+     * Eliminates unnecessary values into
      * a BHD bank file and convert it
      * to array.
      *
-     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
+     * @param \MidasSoft\DominicanBankParser\Files\AbstractFile $file
      *
      * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
@@ -34,7 +34,13 @@ class BHDBankParser extends AbstractParser
                 return;
             }
 
-            $collection->push(new Deposit($line[6], $line[0], $line[4], $line[4]));
+            $amount = $line[6];
+            $date = $line[0];
+            $description = $line[4];
+            $hour = $line[9];
+            $term = $line[4];
+
+            $collection->push(new BHDDeposit($amount, $date, $description, $term, $hour));
         });
 
         $this->failIfParsedFileIsEmpty($collection);

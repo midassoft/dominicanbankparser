@@ -3,18 +3,18 @@
 namespace MidasSoft\DominicanBankParser\Parsers;
 
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
-use MidasSoft\DominicanBankParser\Deposit;
+use MidasSoft\DominicanBankParser\Deposits\PopularDeposit;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Validators\PopularValidator;
 
 class PopularBankParser extends AbstractParser
 {
     /**
-     * Eliminates unnecesary values into
+     * Eliminates unnecessary values into
      * a Popular bank file and convert it
      * to array.
      *
-     * @param \MidasSoft\DominicanBankParser\Files\CSV $file
+     * @param \MidasSoft\DominicanBankParser\Files\AbstractFile $file
      *
      * @throws \MidasSoft\DominicanBankParser\Exceptions\InvalidArgumentException
      * @throws \MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
@@ -31,7 +31,13 @@ class PopularBankParser extends AbstractParser
                 return;
             }
 
-            $collection->push(new Deposit($line[2], $line[0], $line[5], $line[1]));
+            $amount = $line[2];
+            $date = $line[0];
+            $description = $line[5];
+            $reference = $line[3];
+            $term = $line[1];
+
+            $collection->push(new PopularDeposit($amount, $date, $description, $term, $reference));
         });
 
         $this->failIfParsedFileIsEmpty($collection);

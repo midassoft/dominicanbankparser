@@ -3,7 +3,7 @@
 namespace MidasSoft\DominicanBankParser\Parsers;
 
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
-use MidasSoft\DominicanBankParser\Deposit;
+use MidasSoft\DominicanBankParser\Deposits\ReservasDeposit;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Traits\InteractsWithArrayTrait;
 use MidasSoft\DominicanBankParser\Validators\ReservasValidator;
@@ -13,7 +13,7 @@ class ReservasBankParser extends AbstractParser
     use InteractsWithArrayTrait;
 
     /**
-     * Eliminates unnecesary values into
+     * Eliminates unnecessary values into
      * a Reservas bank file and convert it
      * to array.
      *
@@ -34,7 +34,13 @@ class ReservasBankParser extends AbstractParser
                 return;
             }
 
-            $collection->push(new Deposit(trim($line[5]), $line[1], $line[7], $line[2]));
+            $amount = trim($line[5]);
+            $date = $line[1];
+            $description = $line[7];
+            $reference = $line[3];
+            $term = $line[2];
+
+            $collection->push(new ReservasDeposit($amount, $date, $description, $term, $reference));
         });
 
         $this->failIfParsedFileIsEmpty($collection);

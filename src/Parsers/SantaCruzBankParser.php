@@ -3,14 +3,14 @@
 namespace MidasSoft\DominicanBankParser\Parsers;
 
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
-use MidasSoft\DominicanBankParser\Deposit;
+use MidasSoft\DominicanBankParser\Deposits\SantaCruzDeposit;
 use MidasSoft\DominicanBankParser\Files\AbstractFile;
 use MidasSoft\DominicanBankParser\Validators\SantaCruzValidator;
 
 class SantaCruzBankParser extends AbstractParser
 {
     /**
-     * Eliminates unnecesary values into
+     * Eliminates unnecessary values into
      * a Santa Cruz bank file and convert it
      * to array.
      *
@@ -31,7 +31,13 @@ class SantaCruzBankParser extends AbstractParser
                 return;
             }
 
-            $collection->push(new Deposit($line[3], $line[0], $line[1], $line[1]));
+            $amount = $line[3];
+            $remainingBalance = $line[4];
+            $date = $line[0];
+            $description = $line[1];
+            $term = $line[1];
+
+            $collection->push(new SantaCruzDeposit($amount, $date, $description, $term, $remainingBalance));
         });
 
         $this->failIfParsedFileIsEmpty($collection);

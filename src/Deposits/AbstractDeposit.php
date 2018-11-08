@@ -1,36 +1,51 @@
 <?php
 
-namespace MidasSoft\DominicanBankParser;
+namespace MidasSoft\DominicanBankParser\Deposits;
 
-class Deposit
+abstract class AbstractDeposit
 {
     /**
      * The amount of the deposit.
      *
      * @var float
      */
-    private $amount;
+    protected $amount;
 
     /**
      * The date of the deposit.
      *
      * @var string
      */
-    private $date;
+    protected $date;
 
     /**
      * The description of the deposit.
      *
      * @var string
      */
-    private $description;
+    protected $description;
+
+    /**
+     * The identifier of the deposit.
+     *
+     * @var string
+     */
+    protected $id;
 
     /**
      * The term of the deposit.
      *
      * @var string
      */
-    private $term;
+    protected $term;
+
+    /**
+     * The name of the bank which
+     * this deposit come from.
+     *
+     * @var string
+     */
+    const BANK_NAME = null;
 
     /**
      * Creates a new Deposit object.
@@ -45,8 +60,16 @@ class Deposit
         $this->amount = $amount;
         $this->date = $date;
         $this->description = $description;
+        $this->id = $this->generateId();
         $this->term = $term;
     }
+
+    /**
+     * Generates an identifier for the deposit.
+     *
+     * @return string
+     */
+    abstract public function generateId();
 
     /**
      * Returns the amount property.
@@ -79,6 +102,16 @@ class Deposit
     }
 
     /**
+     * Returns the id property.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Returns the term property.
      *
      * @return string
@@ -95,6 +128,6 @@ class Deposit
      */
     public function __toString()
     {
-        return sprintf('%s|%s|%s|%s', $this->amount, $this->date, $this->description, $this->term);
+        return sprintf('%s|%s|%s|%s|%s', $this::BANK_NAME, $this->amount, $this->date, $this->description, $this->term);
     }
 }
