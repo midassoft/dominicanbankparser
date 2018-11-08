@@ -5,7 +5,7 @@ namespace MidasSoft\DominicanBankParser\Files;
 class CSV extends AbstractFile
 {
     /**
-     * Eliminates all unnecesary
+     * Eliminates all unnecessary
      * values in a CSV file.
      *
      * @return array
@@ -23,8 +23,6 @@ class CSV extends AbstractFile
 
     /**
      * Converts a CSV string to array.
-     *
-     * @param string $csvString
      *
      * @return array
      */
