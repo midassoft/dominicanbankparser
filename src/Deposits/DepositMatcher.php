@@ -1,6 +1,6 @@
 <?php
 
-namespace MidasSoft\DominicanBankParser;
+namespace MidasSoft\DominicanBankParser\Deposits;
 
 use MidasSoft\DominicanBankParser\Collections\DepositCollection;
 
