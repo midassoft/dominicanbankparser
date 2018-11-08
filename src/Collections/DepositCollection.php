@@ -14,7 +14,7 @@ class DepositCollection extends Collection
     public function __construct($items = [])
     {
         array_walk($items, function ($value) {
-            failIfValueDoesNotInheritFromAbstractDeposit($value);
+            $this->failIfValueDoesNotInheritFromAbstractDeposit($value);
         });
 
         parent::__construct($items);
@@ -25,7 +25,7 @@ class DepositCollection extends Collection
      */
     public function push($value)
     {
-        failIfValueDoesNotInheritFromAbstractDeposit($value);
+        $this->failIfValueDoesNotInheritFromAbstractDeposit($value);
         parent::push($value);
     }
 
