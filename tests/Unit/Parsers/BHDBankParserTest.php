@@ -5,6 +5,7 @@ namespace Tests\Unit\Parsers;
 use DateTime;
 use DateTimeZone;
 use MidasSoft\DominicanBankParser\Cache\ArrayCacheDriver;
+use MidasSoft\DominicanBankParser\Deposits\BHDDeposit;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Parsers\BHDBankParser;
 use PHPUnit\Framework\TestCase;
@@ -28,6 +29,7 @@ class BHDBankParserTest extends TestCase
         $parsedData = $this->parser->parse($this->file);
 
         $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedData);
+        $this->assertContainsOnlyInstancesOf(BHDDeposit::class, $parsedData->toArray());
         $this->assertCount(91, $parsedData);
     }
 
@@ -36,19 +38,21 @@ class BHDBankParserTest extends TestCase
      * @expectedException MidasSoft\DominicanBankParser\Exceptions\EmptyFileException
      * @expectedExceptionMessage You're trying to parse an empty file.
      */
-    public function bhd_bank_parser_throws_an_exception_when_you_try_to_parse_an_empty_file()
+    public function it_throws_an_exception_when_you_try_to_parse_an_empty_file()
     {
         $parsedData = $this->parser->parse(new CSV(''));
     }
 
     /** @test */
-    public function bhd_bank_parser_can_parse_file_from_cache()
+    public function it_can_parse_file_from_cache()
     {
         $parsedData = $this->parser->parse($this->file);
         $parsedFromCache = $this->parser->getCacheManager()->get((new DateTime('now', new DateTimeZone('America/Santo_Domingo')))->format('Y-m-d H:i:s'));
 
         $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedData);
         $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedFromCache);
+        $this->assertContainsOnlyInstancesOf(BHDDeposit::class, $parsedData->toArray());
+        $this->assertContainsOnlyInstancesOf(BHDDeposit::class, $parsedFromCache->toArray());
         $this->assertCount(91, $parsedData);
         $this->assertCount(91, $parsedFromCache);
     }

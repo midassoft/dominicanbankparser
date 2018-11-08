@@ -5,6 +5,7 @@ namespace Tests\Unit\Parsers;
 use DateTime;
 use DateTimeZone;
 use MidasSoft\DominicanBankParser\Cache\ArrayCacheDriver;
+use MidasSoft\DominicanBankParser\Deposits\SantaCruzDeposit;
 use MidasSoft\DominicanBankParser\Files\CSV;
 use MidasSoft\DominicanBankParser\Parsers\SantaCruzBankParser;
 use PHPUnit\Framework\TestCase;
@@ -28,6 +29,7 @@ class SantaCruzBankParserTest extends TestCase
         $parsedData = $this->parser->parse($this->file);
 
         $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedData);
+        $this->assertContainsOnlyInstancesOf(SantaCruzDeposit::class, $parsedData->toArray());
         $this->assertCount(6, $parsedData);
     }
 
@@ -49,6 +51,8 @@ class SantaCruzBankParserTest extends TestCase
 
         $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedData);
         $this->assertInstanceOf('MidasSoft\DominicanBankParser\Collections\DepositCollection', $parsedFromCache);
+        $this->assertContainsOnlyInstancesOf(SantaCruzDeposit::class, $parsedData->toArray());
+        $this->assertContainsOnlyInstancesOf(SantaCruzDeposit::class, $parsedFromCache->toArray());
         $this->assertCount(6, $parsedData);
         $this->assertCount(6, $parsedFromCache);
     }
